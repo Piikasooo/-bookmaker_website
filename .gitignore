@@ -6,6 +6,13 @@
 # C extensions
 *.so
 
+media/
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.env
+db.sqlite3
+
 # Distribution / packaging
 *.flaskenv
 .Python
