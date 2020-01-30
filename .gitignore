@@ -10,7 +10,7 @@ media/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
-*.env
+.env
 db.sqlite3
 
 # Distribution / packaging
