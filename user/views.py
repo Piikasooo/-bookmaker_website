@@ -7,12 +7,10 @@ def user_registration(request):
     form = RegistrationForm()
     if request.method == "POST":
         form = RegistrationForm(request.POST)
-        print(form)
         if form.is_valid():
             form.save()
-            print(form)
             user = authenticate(username=form.cleaned_data['username'],
-                                password=form.cleaned_data['password1'],
+                                password=form.cleaned_data['password'],
                                 email=form.cleaned_data['email'])
             login(request, user)
             return redirect('home')

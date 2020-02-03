@@ -18,13 +18,13 @@
         <div class="form-group">
             {{ form.password.label_tag }}
             {{ form.password }}
-            <small id="password1Help" class="form-text text-muted">{{ form.password1.errors }}</small>
+            <small id="passwordHelp" class="form-text text-muted">{{ form.password.errors }}</small>
         </div>
 
         <div class="form-group">
-            {{ form.password_confirm.label_tag }}
-            {{ form.password_confirm }}
-            <small id="password2Help" class="form-text text-muted">{{ form.password2.errors }}</small>
+            {{ form.confirm_password.label_tag }}
+            {{ form.confirm_password }}
+            <small id="passwordHelp" class="form-text text-muted">{{ form.confirm_password.errors }}</small>
         </div>
         <button type="submit" class="btn btn-primary">Register</button>
     </form>
