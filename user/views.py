@@ -1,17 +1,19 @@
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
-from .forms import RegistrationForm
+from .forms import RegistrationForm, UserProfileForm
 
 
 def user_registration(request):
-    form = RegistrationForm()
+    user_form = RegistrationForm()
+    profile_form = UserProfileForm()
     if request.method == "POST":
-        form = RegistrationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            user = authenticate(username=form.cleaned_data['username'],
-                                password=form.cleaned_data['password'],
-                                email=form.cleaned_data['email'])
-            login(request, user)
-            return redirect('home')
-    return render(request, 'user/registration.html', {"form": form} )
+        user_form = RegistrationForm(request.POST)
+        profile_form = UserProfileForm(request.POST)
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile = UserProfileForm(request.POST)
+            profile.save()
+            return redirect('/')
+    return render(request, 'user/registration.html', {"user_form": user_form,
+                                                      "profile_form": profile_form,
+                                                      } )
