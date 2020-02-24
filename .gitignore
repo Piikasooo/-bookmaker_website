@@ -6,6 +6,8 @@
 # C extensions
 *.so
 
+avatars/
+
 media/
 
 # Byte-compiled / optimized / DLL files
