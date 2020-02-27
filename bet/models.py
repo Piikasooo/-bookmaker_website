@@ -18,10 +18,11 @@ class Bets(models.Model):
     first_coefficient = models.DecimalField(max_digits=2, decimal_places=2)
     second_coefficient = models.DecimalField(max_digits=2, decimal_places=2)
     third_coefficient = models.DecimalField(max_digits=2, decimal_places=2)
+    choice = models.IntegerField()
 
 
 class UserBets(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, default=None, null=True)
-    bet = models.ManyToManyField(Bets)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
+    bet = models.ForeignKey(Bets, on_delete=models.CASCADE, default=None)
     how_much_bet_user = models.DecimalField(max_digits=6, decimal_places=2)
     bet_date = models.DateTimeField()
