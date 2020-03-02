@@ -12,17 +12,20 @@ class Game(models.Model):
     category = models.ForeignKey(BetCategories, on_delete=models.CASCADE)
 
 
+class Coefficients(models.Model):
+    coefficient = models.DecimalField(max_digits=2, decimal_places=2)
+    coeff_start_date = models.DateTimeField(auto_now_add=True)
+    coeff_until_date = models.DateTimeField(blank=True, null=True)
+
+
 class Bets(models.Model):
     game = models.ManyToManyField(Game)
     condition = models.CharField(max_length=3000)
-    first_coefficient = models.DecimalField(max_digits=2, decimal_places=2)
-    second_coefficient = models.DecimalField(max_digits=2, decimal_places=2)
-    third_coefficient = models.DecimalField(max_digits=2, decimal_places=2)
-    choice = models.IntegerField()
+    choice = models.ForeignKey(Coefficients, on_delete=models.DO_NOTHING)
 
 
 class UserBets(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
     bet = models.ForeignKey(Bets, on_delete=models.CASCADE, default=None)
-    how_much_bet_user = models.DecimalField(max_digits=6, decimal_places=2)
-    bet_date = models.DateTimeField()
+    user_bet_money = models.DecimalField(max_digits=6, decimal_places=2)
+    bet_date = models.DateTimeField(auto_now_add=True)
