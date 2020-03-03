@@ -27,5 +27,5 @@ class Bets(models.Model):
 class UserBets(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
     bet = models.ForeignKey(Bets, on_delete=models.CASCADE, default=None)
-    user_bet_money = models.DecimalField(max_digits=6, decimal_places=2)
+    bet_money = models.DecimalField(max_digits=6, decimal_places=2)
     bet_date = models.DateTimeField(auto_now_add=True)
