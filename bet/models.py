@@ -2,30 +2,41 @@ from django.db import models
 from user.models import User
 
 
-class BetCategories(models.Model):
-    name = models.CharField(max_length=1000, unique=True)
-    uuid = models.CharField(max_length=36, unique=True)
+class Bet(models.Model):
+    user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
 
 
-class Game(models.Model):
-    name = models.CharField(max_length=1000, unique=True)
-    category = models.ForeignKey(BetCategories, on_delete=models.CASCADE)
+class BetStatus(models.Model):
+
+    class Status(models.IntegerChoices):
+        in_processing = 1
+        approved = 2
+        failure = 3
+        in_archive = 4
+    status = models.IntegerField(choices=Status.choices)
 
 
-class Coefficients(models.Model):
-    coefficient = models.DecimalField(max_digits=2, decimal_places=2)
-    coeff_start_date = models.DateTimeField(auto_now_add=True)
-    coeff_until_date = models.DateTimeField(blank=True, null=True)
+class EventResult(models.Model):
+    name = models.CharField(max_length=1000)
+    result = models.IntegerField()
 
 
-class Bets(models.Model):
-    game = models.ManyToManyField(Game)
-    condition = models.CharField(max_length=3000)
-    choice = models.ForeignKey(Coefficients, on_delete=models.DO_NOTHING)
+class Event(models.Model):
+    name = models.CharField(max_length=1000)
+    date = models.DateTimeField()
+    event_result = models.ForeignKey(EventResult, on_delete=models.DO_NOTHING)
 
 
-class UserBets(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
-    bet = models.ForeignKey(Bets, on_delete=models.CASCADE, default=None)
-    bet_money = models.DecimalField(max_digits=6, decimal_places=2)
-    bet_date = models.DateTimeField(auto_now_add=True)
+class EventStatus(models.Model):
+    name = models.CharField(max_length=1000)
+    event = models.ForeignKey(Event, on_delete=models.DO_NOTHING)
+
+
+class EventGroup(models.Model):
+    name = models.CharField(max_length=1000)
+    event = models.ForeignKey(Event, on_delete=models.DO_NOTHING)
+
+
+class KindOfSport(models.Model):
+    name = models.CharField(max_length=1000)
+    event = models.ForeignKey(Event, on_delete=models.DO_NOTHING)
