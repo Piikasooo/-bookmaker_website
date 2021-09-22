@@ -1,5 +1,5 @@
 asgiref==3.2.3
-Django==3.0.3
+Django==3.1.13
 environs==7.1.0
 marshmallow==3.3.0
 Pillow==7.0.0
